@@ -5,7 +5,7 @@ app.use(express.json());
 
 
 let users=[];
-app.get('/email',(req,res)=>{
+app.post('/email',(req,res)=>{
     const email=req.query.email;
     if(!email){
         return res.status(400).json({message:"Email cannot be empty"});
@@ -18,17 +18,21 @@ app.get('/email',(req,res)=>{
     res.status(201).json({message:"email added sucessfully"});
 })
     
-app.get('/password',(req,res)=>{
+app.post('/password',(req,res)=>{
     const password =req.query.password;
     if(!password){
-        return res.status(400).json({message:"password is required"});
+        return res.status(400).json({message:"passwords cannot be empty"});
     }
     res.json(
         id=password.length+1,
         password
     )
     password.push(users);
-    res.status(201).json({message:"Password cannot be empty"})
+    res.status(201).json({message:"Password added successfully"})
+})
+
+app.get('/login',(req,res)=>{
+    res.json(users)
 })
 
 app.listen(PORT,()=>{
